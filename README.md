@@ -151,6 +151,9 @@ int main()
 }
 ```
 ```
+nano skel.asm
+```
+```
 ;
 ; file: skel.asm
 ; This file is a skeleton that can be used to start assembly programs.
@@ -1297,7 +1300,7 @@ nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 ld -m elf_i386 -o skel.elf skel.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
 ```
 ```
-./first.elf
+./skel.elf
 ```
 
 
@@ -1439,7 +1442,8 @@ input2  resd 1
 segment .text
         global  asm_main
 asm_main:
-        enter   0,0               ; setup routine
+; MODIFICATION WITHOUT C WRAPING
+;        enter   0,0               ; setup routine
         pusha
 
         mov     eax, prompt1      ; print out prompt
@@ -1476,12 +1480,31 @@ asm_main:
         call    print_int         ; print out sum (ebx)
         call    print_nl          ; print new-line
 
-        popa
-        mov     eax, 0            ; return back to C
-        leave                     
-        ret
-```
+; MODIFICATION WITHOUT C WRAPPIING ADDED
+	; sys_exit (status = 0)
+	mov eax, 1          ; syscall number for sys_exit
+	xor ebx, ebx        ; exit code 0
+	int 0x80            ; call kernel
 
+
+	popa
+; MODIFICATION WITHOUT C WRAPPING
+;        mov     eax, 0            ; return back to C
+;        leave                     
+;        ret
+```
+```
+nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
+```
+```
+nasm -f elf32 -d ELF_TYPE -o first.o first.asm
+```
+```
+ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
+```
+```
+./first.elf
+```
 ```
 cd ..
 ```
