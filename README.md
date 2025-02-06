@@ -20,3 +20,13 @@ _start:
     xor ebx, ebx    ; code de retour 0
     int 0x80        ; appel système
 ```
+```
+nasm -f elf hello.asm -o hello.o
+```
+```
+ld -m elf_i386 hello.o -o hello
+```
+```
+./hello
+```
+
