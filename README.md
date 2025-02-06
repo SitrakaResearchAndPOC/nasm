@@ -96,6 +96,49 @@ ld -m elf_i386 mon_programme.o -o mon_programme
 # COMPILING SKEL WITH C WRAPPING
 * Code C
 ```
+mkdir skel_c
+```
+```
+cd skel_c
+```
+```
+nano cdecl.c
+```
+```
+#ifndef CDECL_HEADER_FILE
+#define CDECL_HEADER_FILE
+
+/*
+ * Define macros to specify the standard C calling convention
+ * The macros are designed so that they will work with all
+ * supported C/C++ compilers.
+ *
+ * To use define your function prototype like this:
+ *
+ * return_type PRE_CDECL func_name( args ) POST_CDECL;
+ *
+ * For example:
+ *
+ * int PRE_CDECL f( int x, int y) POST_CDECL;
+ */
+
+
+#if defined(__GNUC__)
+#  define PRE_CDECL
+#  define POST_CDECL __attribute__((cdecl))
+#else
+#  define PRE_CDECL __cdecl
+#  define POST_CDECL
+#endif
+
+
+#endif
+
+```
+```
+nano driver.c
+```
+```
 #include "cdecl.h"
 
 int PRE_CDECL asm_main( void ) POST_CDECL;
@@ -1266,9 +1309,6 @@ mkdir first_c
 cd first_c
 ```
 ```
-nano first.asm
-```
-```
 %include "asm_io.inc"
 ;
 ; initialized data is put in the .data segment
@@ -1359,10 +1399,10 @@ cd ..
 
 # COMPILING FIRST IN NASM
 ```
-mkdir first_c
+mkdir first
 ```
 ```
-cd first_c
+cd first
 ```
 ```
 nano first.asm
