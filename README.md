@@ -1,4 +1,7 @@
-# nasm
+# HELLO WORLS : nasm
+```
+nano hello.asm
+```
 ```
 section .data
     msg db 'Hello, World!', 0xA  ; Message avec saut de ligne
@@ -30,7 +33,10 @@ ld -m elf_i386 hello.o -o hello
 ./hello
 ```
 
-
+# SCAN AND PRINT IN ASM
+```
+mon_programme.asm
+```
 ```
 section .bss
     num resb 10   ; Réserver de l'espace pour stocker l'entrée utilisateur
