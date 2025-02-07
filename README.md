@@ -102,7 +102,7 @@ mkdir skel_c
 cd skel_c
 ```
 ```
-nano cdecl.c
+nano cdecl.h
 ```
 ```
 #ifndef CDECL_HEADER_FILE
