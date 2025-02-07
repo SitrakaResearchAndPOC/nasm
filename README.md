@@ -1465,6 +1465,7 @@ asm_main:
         leave                     
         ret
 ```
+```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
 ```
