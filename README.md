@@ -711,6 +711,8 @@ cont_tag_loop:
 	leave
 	ret	4
 ```
+Compiling
+```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
 ```
