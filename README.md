@@ -790,6 +790,15 @@ EXERCICE : REMAKE THIS EXERCICE BY ADDING PRINT : HELLO WORLD ON THE CODE
 
 # COMPILING SKEL IN NASM
 ```
+mkdir skel
+```
+```
+cd skel
+```
+```
+nano skel.asm
+```
+```
 ;
 ; file: skel.asm
 ; This file is a skeleton that can be used to start assembly programs.
@@ -1367,6 +1376,9 @@ ld -m elf_i386 -o skel.elf skel.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.
 ```
 ./skel.elf
 ```
+```
+cd ..
+```
 
 
 # COMPILING FIRST IN NASM WITH C WRAPPING
@@ -1376,6 +1388,10 @@ mkdir first_c
 ```
 cd first_c
 ```
+```
+nano first.asm
+```
+
 ```
 %include "asm_io.inc"
 ;
