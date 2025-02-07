@@ -832,7 +832,7 @@ asm_main:
 ;        mov     eax, 0            ; return back to C
 ;        leave                     
 ;        ret
-```
+
 ; MODIFICATION ADDED FOR RETUN 
     ; Sortie propre du programme
     mov eax, 1      ; syscall sys_exit
@@ -843,7 +843,6 @@ NEED asm_io.inc and asm_io.asm
 ```
 nano asm_io.inc
 ```
-
 ```
 	extern  read_int, print_int, print_string
 	extern	read_char, print_char, print_nl
