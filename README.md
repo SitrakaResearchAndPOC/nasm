@@ -711,7 +711,7 @@ cont_tag_loop:
 	leave
 	ret	4
 ```
-Compiling
+Compiling skel with C wrapping
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
@@ -724,6 +724,10 @@ gcc -m32 -o skel driver.c skel.o asm_io.o
 ```
 ./skel
 ```
+```
+cd ..
+```
+EXERCICE : REMAKE THIS EXERCICE BY ADDING PRINT : HELLO WORLD ON THE CODE
 
 # COMPILING SKEL IN NASM
 ```
