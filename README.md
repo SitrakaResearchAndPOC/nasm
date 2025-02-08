@@ -820,15 +820,15 @@ segment .text
 asm_main:
 ; MODIFICATION WITHOUT WRAPPING C
 ;        enter   0,0               ; setup routine
-        pusha
+;        pusha
 
 ;
 ; code is put in the text segment. Do not modify the code before
 ; or after this comment.
 ;
 
-        popa
 ; MODIFICATION WITHOUT WRAPPING C
+;        popa
 ;        mov     eax, 0            ; return back to C
 ;        leave                     
 ;        ret
@@ -1525,7 +1525,7 @@ segment .text
 asm_main:
 ; MODIFICATION WITHOUT C WRAPING
 ;        enter   0,0               ; setup routine
-        pusha
+;        pusha
 
         mov     eax, prompt1      ; print out prompt
         call    print_string
@@ -1567,9 +1567,8 @@ asm_main:
 	xor ebx, ebx        ; exit code 0
 	int 0x80            ; call kernel
 
-
-	popa
 ; MODIFICATION WITHOUT C WRAPPING
+;	 popa
 ;        mov     eax, 0            ; return back to C
 ;        leave                     
 ;        ret
