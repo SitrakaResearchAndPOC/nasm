@@ -34,7 +34,7 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 sudo apt install code
 ```
 
-OU UTILISER UBUNTU PREINSTALLE (nom ASM.zip) </br>
+OU UTILISER UBUNTU PREINSTALLE (ASM qui est avec dgb-peda et metasploit, MYASM Juste pour compilation) </br>
 
 * sans retour à la ligne
 
