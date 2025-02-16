@@ -1,5 +1,4 @@
-# HELLO WORLD : nasm
-## Installing dependancies
+# Installing dependancies
 Installing VM (VMWARE 17Pro) </br> </br>
 Installing Ubuntu in your choose ubuntu 20.04 or 22.04 or  ubuntu 24.04 </br> </br>
 
@@ -30,6 +29,8 @@ OR USE PREINSTALLED OS (named ASM) </br>
 TEXT EDITOR IS NANO OR GEDIT</br> 
 IF YOU USE NANO : PLEASE TAPE CTRL+Y FOR SAVING AND ENTER AFTER </br>
 IF YOU USE GEDIT : PLEASE TAPE CTRL+S FOR SAVING AND ENTER </br>  </br>
+
+# HELLO WORLD : nasm
 
 ```
 nano hello.asm
