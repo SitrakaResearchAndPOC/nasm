@@ -1545,10 +1545,10 @@ wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/mai
 wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/asm_io.inc
 ```
 ```
-https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/cdecl.h
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/cdecl.h
 ```
 ```
-https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/driver.c
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/driver.c
 ```
 ```
 ls
