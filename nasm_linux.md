@@ -1429,7 +1429,9 @@ cont_tag_loop:
 	leave
 	ret	4
 ```
-
+```
+ls
+```
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
@@ -1542,7 +1544,15 @@ wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/mai
 ```
 wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/asm_io.inc
 ```
-
+```
+https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/cdecl.h
+```
+```
+https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/win/driver.c
+```
+```
+ls
+```
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
