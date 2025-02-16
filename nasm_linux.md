@@ -1,6 +1,7 @@
 # Installation des dependances
 Installation VM (VMWARE 17Pro) </br> </br>
 Installation Ubuntu, de votre choix : ubuntu 20.04 ou 22.04 ou  ubuntu 24.04 </br> </br>
+Configuration reseaux </br> </br>
 
 * Pour ubuntu 20.04 or 22.04
 ```
@@ -19,8 +20,20 @@ sudo dpkg --add-architecture i386
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
-</br>
-Configuration reseaux </br> </br>
+* Installation vscode
+```
+sudo apt install software-properties-common apt-transport-https curl
+```
+```
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+```
+```
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+```
+```
+sudo apt install code
+```
+
 OU UTILISER UBUNTU PREINSTALLE (nom ASM.zip) </br>
 
 * sans retour à la ligne
