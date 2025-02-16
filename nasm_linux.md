@@ -90,7 +90,7 @@ ld -m elf_i386 hello.o -o hello.elf
 ```
 * compiler avec retour à la ligne :
 ```
-rm -rf hello.elf *.o
+rm -rf hello.asm hello.elf *.o
 ```
 ```
 nano hello.asm
