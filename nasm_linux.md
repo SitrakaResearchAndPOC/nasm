@@ -1,7 +1,7 @@
 # HELLO WORLD : nasm
 ## Installing dependancies
-Installing VM (VMWARE 17Pro) </br>
-Installing Ubuntu in your choose </br>
+Installing VM (VMWARE 17Pro) </br> </br>
+Installing Ubuntu in your choose </br> </br>
 ```
 apt update
 ```
@@ -16,7 +16,8 @@ sudo dpkg --add-architecture i386
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
-Configuring network
+</br>
+Configuring network </br>
 OR USE PREINSTALLED OS (named ASM)
 
 * sans retour à la ligne
