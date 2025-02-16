@@ -5,6 +5,12 @@ Configuration reseaux </br> </br>
 
 * Pour ubuntu 20.04 or 22.04
 ```
+mkdir HELLO
+```
+```
+cd HELLO
+```
+```
 apt update
 ```
 ```
