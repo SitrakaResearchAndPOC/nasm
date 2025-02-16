@@ -86,6 +86,9 @@ OR
 ld -m elf_i386 hello.o -o hello.elf
 ```
 ```
+chmod +x hello.efl
+```
+```
 ./hello.elf
 ```
 * hello world avec saut à la ligne dans l'ethiquette _start
@@ -138,10 +141,13 @@ OR
 ld -m elf_i386 hello.o -o hello.elf
 ```
 ```
+chmod +x hello.efl
+```
+```
 ./hello.elf
 ```
 
-# SCAN AND PRINT IN ASM
+# SAISIR ET AFFICHER EN NASM
 ```
 nano mon_programme.asm
 ```
