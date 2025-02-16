@@ -208,6 +208,9 @@ OR
 ld -m elf_i386 mon_programme.o -o mon_programme.elf
 ```
 ```
+chmod +x mon_programme.elf
+```
+```
 ./mon_programme.elf
 ```
 
