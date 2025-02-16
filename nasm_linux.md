@@ -3,7 +3,7 @@
 ```
 apt update
 ```
-* For ubuntu 22.04
+* For ubuntu 20.04 or 22.04
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
