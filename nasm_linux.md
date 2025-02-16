@@ -88,52 +88,9 @@ ld -m elf_i386 hello.o -o hello.elf
 ```
 ./hello.elf
 ```
-* compiler avec retour à la ligne :
-```
-rm -rf hello.asm hello.elf *.o
-```
-```
-nano hello.asm
-```
-```
-   section .data
-    message db 'Hello, World!', 0xA  ; Message avec saut de ligne après le mot
-    length equ $ - message            ; Calculer la longueur du message
-
-section .text
-    global _start
-
-_start:
-    ; Écriture du message sur la sortie standard (stdout)
-    mov eax, 4      ; syscall sys_write
-    mov ebx, 1      ; file descriptor 1 (stdout)
-    mov ecx, message ; adresse du message
-    mov edx, length ; longueur du message
-    int 0x80        ; appel système
-
-    ; Sortie propre du programme
-    mov eax, 1      ; syscall sys_exit
-    xor ebx, ebx    ; code de retour 0
-    int 0x80        ; appel système
-```
-exercice compilation !?
-```
-nasm -f elf hello.asm -o hello.o
-```
-```
-gcc -m32 hello.o -o hello.elf -nostartfiles
-```
-OR
-```
-ld -m elf_i386 hello.o -o hello.elf
-```
-```
-./hello.elf
-```
-
 * hello world avec saut à la ligne dans l'ethiquette _start
 ```
-rm -rf hello.asm
+rm -rf hello.asm hello.elf *.o
 ```
 ```
 nano hello.asm
