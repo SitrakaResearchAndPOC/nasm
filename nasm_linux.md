@@ -81,7 +81,7 @@ nasm -f elf hello.asm -o hello.o
 ```
 gcc -m32 hello.o -o hello.elf -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 hello.o -o hello.elf
 ```
@@ -136,7 +136,7 @@ nasm -f elf hello.asm -o hello.o
 ```
 gcc -m32 hello.o -o hello.elf -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 hello.o -o hello.elf
 ```
@@ -203,7 +203,7 @@ nasm -f elf32 mon_programme.asm -o mon_programme.o
 ```
 gcc -m32  mon_programme.o -o mon_programme.elf -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 mon_programme.o -o mon_programme.elf
 ```
@@ -1441,7 +1441,7 @@ nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 ```
 gcc -m32 -o skel.elf skel.o asm_io.o -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 -o skel.elf skel.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
 ```
@@ -1573,7 +1573,7 @@ chmod +x first.elf
 cd ..
 ```
 
-# COMPILING FIRST IN NASM
+# COMPILATION DE FIRST EN NASM
 ```
 mkdir first
 ```
@@ -1680,9 +1680,12 @@ nasm -f elf32 -d ELF_TYPE -o first.o first.asm
 ```
 gcc -m32 -o first.elf first.o asm_io.o -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
+```
+```
+chmod +x first.elf
 ```
 ```
 ./first.elf
