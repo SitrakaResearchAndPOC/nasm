@@ -1,15 +1,15 @@
 # Installation des dependances
 Installation VM (VMWARE 17Pro) </br> </br>
-Installation Ubuntu, de votre choix : ubuntu 20.04 or 22.04 or  ubuntu 24.04 </br> </br>
+Installation Ubuntu, de votre choix : ubuntu 20.04 ou 22.04 ou  ubuntu 24.04 </br> </br>
 
-* For ubuntu 20.04 or 22.04
+* Pour ubuntu 20.04 or 22.04
 ```
 apt update
 ```
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
-* For ubuntu 24.04
+* Pour ubuntu 24.04
 ```
 apt update
 ```
@@ -71,6 +71,12 @@ ld -m elf_i386 hello.o -o hello.elf
 ```
 * compiler avec retour à la ligne :
 ```
+rm -rf hello.asm
+```
+```
+nano hello.asm
+```
+```
    section .data
     message db 'Hello, World!', 0xA  ; Message avec saut de ligne après le mot
     length equ $ - message            ; Calculer la longueur du message
@@ -91,8 +97,28 @@ _start:
     xor ebx, ebx    ; code de retour 0
     int 0x80        ; appel système
 ```
-exercice compiling !?
+exercice compilation !?
+```
+nasm -f elf hello.asm -o hello.o
+```
+```
+gcc -m32 hello.o -o hello.elf -nostartfiles
+```
+OR
+```
+ld -m elf_i386 hello.o -o hello.elf
+```
+```
+./hello.elf
+```
+
 * hello world avec saut à la ligne dans l'ethiquette _start
+```
+rm -rf hello.asm
+```
+```
+nano hello.asm
+```
 ```
 section .data
     message db 'Hello, World!', 0xA  ; Message
@@ -124,9 +150,20 @@ _start:
     xor ebx, ebx    ; code de retour 0
     int 0x80        ; appel système
 ```
-
-
-
+exercice compilation !?
+```
+nasm -f elf hello.asm -o hello.o
+```
+```
+gcc -m32 hello.o -o hello.elf -nostartfiles
+```
+OR
+```
+ld -m elf_i386 hello.o -o hello.elf
+```
+```
+./hello.elf
+```
 
 # SCAN AND PRINT IN ASM
 ```
@@ -810,7 +847,7 @@ cont_tag_loop:
 	leave
 	ret	4
 ```
-Compiling skel with C wrapping
+Compilation skel avec code C
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
@@ -826,9 +863,9 @@ gcc -m32 -o skel.elf driver.c skel.o asm_io.o
 ```
 cd ..
 ```
-EXERCICE : REMAKE THIS EXERCICE BY ADDING PRINT : HELLO WORLD ON THE CODE
+EXERCICE : REFAIRE L'EXERCICE EN AFFICHANT : HELLO WORLD DANS LE CODE
 
-# COMPILING SKEL IN NASM
+# COMPIlATION SKEL EN NASM
 ```
 mkdir skel
 ```
@@ -1424,7 +1461,7 @@ cd ..
 ```
 
 
-# COMPILING FIRST IN NASM WITH C WRAPPING
+# COMPILATION DE FIRST EN NASM AVEC CODE EN C 
 ```
 mkdir first_c
 ```
