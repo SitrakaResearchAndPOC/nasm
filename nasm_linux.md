@@ -86,7 +86,7 @@ OR
 ld -m elf_i386 hello.o -o hello.elf
 ```
 ```
-chmod +x hello.efl
+chmod +x hello.elf
 ```
 ```
 ./hello.elf
@@ -141,7 +141,7 @@ OR
 ld -m elf_i386 hello.o -o hello.elf
 ```
 ```
-chmod +x hello.efl
+chmod +x hello.elf
 ```
 ```
 ./hello.elf
