@@ -214,7 +214,7 @@ chmod +x mon_programme.elf
 ./mon_programme.elf
 ```
 
-# COMPILING SKEL WITH C WRAPPING
+# COMPILATION DE SKEL AVEC CODE C 
 * Code C
 ```
 mkdir skel_c
@@ -308,11 +308,10 @@ asm_main:
         ret
 ```
 
-* NEED asm_io.inc and asm_io.asm
+* BIBLIOTHEQUE POUR LA COMPILATION SEPAREE asm_io.inc (pour l'inclusion) asm_io.asm (pour le code)
 ```
 nano asm_io.inc
 ```
-
 ```
 	extern  read_int, print_int, print_string
 	extern	read_char, print_char, print_nl
@@ -831,6 +830,9 @@ cont_tag_loop:
 	popa
 	leave
 	ret	4
+```
+```
+ls
 ```
 Compilation skel avec code C
 ```
