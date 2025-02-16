@@ -28,10 +28,14 @@ _start:
 nasm -f elf hello.asm -o hello.o
 ```
 ```
-ld -m elf_i386 hello.o -o hello
+gcc -m32 hello.o -o hello.elf -nostartfiles
+```
+OR
+```
+ld -m elf_i386 hello.o -o hello.elf
 ```
 ```
-./hello
+./hello.elf
 ```
 * compiler avec retour à la ligne :
 ```
@@ -146,10 +150,14 @@ _start:
 nasm -f elf32 mon_programme.asm -o mon_programme.o
 ```
 ```
-ld -m elf_i386 mon_programme.o -o mon_programme
+gcc -m32  mon_programme.o -o mon_programme.elf -nostartfiles
+```
+OR
+```
+ld -m elf_i386 mon_programme.o -o mon_programme.elf
 ```
 ```
-./mon_programme
+./mon_programme.elf
 ```
 
 # COMPILING SKEL WITH C WRAPPING
@@ -778,10 +786,10 @@ nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 ```
 ```
-gcc -m32 -o skel driver.c skel.o asm_io.o
+gcc -m32 -o skel.elf driver.c skel.o asm_io.o
 ```
 ```
-./skel
+./skel.elf
 ```
 ```
 cd ..
@@ -1370,6 +1378,10 @@ nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 ```
 ```
+gcc -m32 -o skel.elf skel.o asm_io.o -nostartfiles
+```
+OR
+```
 ld -m elf_i386 -o skel.elf skel.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
 ```
 ```
@@ -1472,10 +1484,10 @@ nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 nasm -f elf32 -d ELF_TYPE -o first.o first.asm
 ```
 ```
-gcc -m32 -o first driver.c first.o asm_io.o
+gcc -m32 -o first.elf driver.c first.o asm_io.o
 ```
 ```
-./first
+./first.elf
 ```
 ```
 cd ..
@@ -1580,6 +1592,10 @@ nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 nasm -f elf32 -d ELF_TYPE -o first.o first.asm
 ```
 ```
+gcc -m32 -o first.elf first.o asm_io.o -nostartfiles
+```
+OR
+```
 ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
 ```
 ```
@@ -1588,7 +1604,4 @@ ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.s
 ```
 cd ..
 ```
-
-
-
 
