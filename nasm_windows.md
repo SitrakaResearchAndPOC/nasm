@@ -1,5 +1,56 @@
-# HELLO WORLD : nasm
+# Installation des dependances
+Installation VM (VMWARE 17Pro) </br> </br>
+Installation Ubuntu, de votre choix : ubuntu 20.04 ou 22.04 ou  ubuntu 24.04 </br> </br>
+Configuration reseaux </br> </br>
+
+* Pour ubuntu 20.04 or 22.04
+```
+mkdir HELLO
+```
+```
+cd HELLO
+```
+```
+apt update
+```
+```
+apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
+```
+* Pour ubuntu 24.04
+```
+apt update
+```
+```
+sudo dpkg --add-architecture i386
+```
+```
+apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
+```
+* Installation vscode
+```
+sudo apt install software-properties-common apt-transport-https curl
+```
+```
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+```
+```
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+```
+```
+sudo apt install code
+```
+
+OU UTILISER UBUNTU PREINSTALLE (ASM qui est avec dgb-peda et metasploit, MYASM Juste pour compilation) </br>
+
 * sans retour à la ligne
+
+</br>
+POUR L'EDITEUR DE TEXTE : NANO ou GEDIT SONT DES CHOIX</br> 
+POUR NANO : TAPER CTRL+Y PUIS ENTREE POUR SAUVEGARDER </br>
+POUR GEDIT : TAPER CTRL+S POUR SAUVEGARDER </br>  </br>
+
+# HELLO WORLD : nasm
+
 ```
 nano hello.asm
 ```
@@ -30,37 +81,23 @@ nasm -f elf hello.asm -o hello.o
 ```
 gcc -m32 hello.o -o hello.elf -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 hello.o -o hello.elf
 ```
 ```
+chmod +x hello.elf
+```
+```
 ./hello.elf
 ```
-* compiler avec retour à la ligne :
-```
-   section .data
-    message db 'Hello, World!', 0xA  ; Message avec saut de ligne après le mot
-    length equ $ - message            ; Calculer la longueur du message
-
-section .text
-    global _start
-
-_start:
-    ; Écriture du message sur la sortie standard (stdout)
-    mov eax, 4      ; syscall sys_write
-    mov ebx, 1      ; file descriptor 1 (stdout)
-    mov ecx, message ; adresse du message
-    mov edx, length ; longueur du message
-    int 0x80        ; appel système
-
-    ; Sortie propre du programme
-    mov eax, 1      ; syscall sys_exit
-    xor ebx, ebx    ; code de retour 0
-    int 0x80        ; appel système
-```
-exercice compiling !?
 * hello world avec saut à la ligne dans l'ethiquette _start
+```
+rm -rf hello.asm hello.elf *.o
+```
+```
+nano hello.asm
+```
 ```
 section .data
     message db 'Hello, World!', 0xA  ; Message
@@ -92,11 +129,25 @@ _start:
     xor ebx, ebx    ; code de retour 0
     int 0x80        ; appel système
 ```
+exercice compilation !?
+```
+nasm -f elf hello.asm -o hello.o
+```
+```
+gcc -m32 hello.o -o hello.elf -nostartfiles
+```
+OU
+```
+ld -m elf_i386 hello.o -o hello.elf
+```
+```
+chmod +x hello.elf
+```
+```
+./hello.elf
+```
 
-
-
-
-# SCAN AND PRINT IN ASM
+# SAISIR ET AFFICHER EN NASM
 ```
 nano mon_programme.asm
 ```
@@ -152,15 +203,18 @@ nasm -f elf32 mon_programme.asm -o mon_programme.o
 ```
 gcc -m32  mon_programme.o -o mon_programme.elf -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 mon_programme.o -o mon_programme.elf
+```
+```
+chmod +x mon_programme.elf
 ```
 ```
 ./mon_programme.elf
 ```
 
-# COMPILING SKEL WITH C WRAPPING
+# COMPILATION DE SKEL AVEC CODE C 
 * Code C
 ```
 mkdir skel_c
@@ -254,11 +308,10 @@ asm_main:
         ret
 ```
 
-* NEED asm_io.inc and asm_io.asm
+* BIBLIOTHEQUE POUR LA COMPILATION SEPAREE asm_io.inc (pour l'inclusion) asm_io.asm (pour le code)
 ```
 nano asm_io.inc
 ```
-
 ```
 	extern  read_int, print_int, print_string
 	extern	read_char, print_char, print_nl
@@ -778,7 +831,10 @@ cont_tag_loop:
 	leave
 	ret	4
 ```
-Compiling skel with C wrapping
+```
+ls
+```
+Compilation skel avec code C
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
@@ -789,14 +845,17 @@ nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 gcc -m32 -o skel.elf driver.c skel.o asm_io.o
 ```
 ```
+chmod +x skel.elf
+```
+```
 ./skel.elf
 ```
 ```
 cd ..
 ```
-EXERCICE : REMAKE THIS EXERCICE BY ADDING PRINT : HELLO WORLD ON THE CODE
+EXERCICE : REFAIRE L'EXERCICE EN AFFICHANT : HELLO WORLD DANS LE CODE
 
-# COMPILING SKEL IN NASM
+# COMPIlATION SKEL EN NASM
 ```
 mkdir skel
 ```
@@ -1370,7 +1429,9 @@ cont_tag_loop:
 	leave
 	ret	4
 ```
-
+```
+ls
+```
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
@@ -1380,7 +1441,7 @@ nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 ```
 gcc -m32 -o skel.elf skel.o asm_io.o -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 -o skel.elf skel.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
 ```
@@ -1392,7 +1453,7 @@ cd ..
 ```
 
 
-# COMPILING FIRST IN NASM WITH C WRAPPING
+# COMPILATION DE FIRST EN NASM AVEC CODE EN C 
 ```
 mkdir first_c
 ```
@@ -1478,6 +1539,21 @@ asm_main:
         ret
 ```
 ```
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm
+```
+```
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.inc
+```
+```
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/cdecl.h
+```
+```
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/driver.c
+```
+```
+ls
+```
+```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
 ```
@@ -1487,13 +1563,17 @@ nasm -f elf32 -d ELF_TYPE -o first.o first.asm
 gcc -m32 -o first.elf driver.c first.o asm_io.o
 ```
 ```
+chmod +x first.elf
+```
+
+```
 ./first.elf
 ```
 ```
 cd ..
 ```
 
-# COMPILING FIRST IN NASM
+# COMPILATION DE FIRST EN NASM
 ```
 mkdir first
 ```
@@ -1586,6 +1666,12 @@ asm_main:
 ;        ret
 ```
 ```
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm
+```
+```
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linx/asm_io.inc
+```
+```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
 ```
 ```
@@ -1594,9 +1680,12 @@ nasm -f elf32 -d ELF_TYPE -o first.o first.asm
 ```
 gcc -m32 -o first.elf first.o asm_io.o -nostartfiles
 ```
-OR
+OU
 ```
 ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
+```
+```
+chmod +x first.elf
 ```
 ```
 ./first.elf
@@ -1604,5 +1693,4 @@ ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.s
 ```
 cd ..
 ```
-
 
