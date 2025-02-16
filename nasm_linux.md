@@ -1,6 +1,6 @@
-# Installing dependancies
-Installing VM (VMWARE 17Pro) </br> </br>
-Installing Ubuntu in your choose ubuntu 20.04 or 22.04 or  ubuntu 24.04 </br> </br>
+# Installation des dependances
+Installation VM (VMWARE 17Pro) </br> </br>
+Installation Ubuntu, de votre choix : ubuntu 20.04 or 22.04 or  ubuntu 24.04 </br> </br>
 
 * For ubuntu 20.04 or 22.04
 ```
@@ -20,15 +20,15 @@ sudo dpkg --add-architecture i386
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
 </br>
-Configuring network </br> </br>
-OR USE PREINSTALLED OS (named ASM) </br>
+Configuration reseaux </br> </br>
+OU UTILISER UBUNTU PREINSTALLE (nom ASM.zip) </br>
 
 * sans retour à la ligne
 
 </br>
-TEXT EDITOR IS NANO OR GEDIT</br> 
-IF YOU USE NANO : PLEASE TAPE CTRL+Y FOR SAVING AND ENTER AFTER </br>
-IF YOU USE GEDIT : PLEASE TAPE CTRL+S FOR SAVING AND ENTER </br>  </br>
+POUR L'EDITEUR DE TEXTE : NANO ou GEDIT SONT DES CHOIX</br> 
+POUR NANO : TAPER CTRL+Y PUIS ENTREE POUR SAUVEGARDER </br>
+POUR GEDIT : TAPER CTRL+S POUR SAUVEGARDER </br>  </br>
 
 # HELLO WORLD : nasm
 
