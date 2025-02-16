@@ -1,15 +1,19 @@
 # HELLO WORLD : nasm
 ## Installing dependancies
 Installing VM (VMWARE 17Pro) </br> </br>
-Installing Ubuntu in your choose </br> </br>
+Installing Ubuntu in your choose ubuntu 20.04 or 22.04 or  ubuntu 24.04 </br> </br>
+
+* For ubuntu 20.04 or 22.04
 ```
 apt update
 ```
-* For ubuntu 20.04 or 22.04
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
 * For ubuntu 24.04
+```
+apt update
+```
 ```
 sudo dpkg --add-architecture i386
 ```
@@ -17,11 +21,12 @@ sudo dpkg --add-architecture i386
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
 </br>
-Configuring network </br>
-OR USE PREINSTALLED OS (named ASM)
+Configuring network </br> </br>
+OR USE PREINSTALLED OS (named ASM) </br>
 
 * sans retour à la ligne
-TEXT EDITOR IS NANO OR GEDIT</br>
+</br>
+TEXT EDITOR IS NANO OR GEDIT</br> 
 IF YOU USE NANO : PLEASE TAPE CTRL+Y FOR SAVING AND ENTER AFTER </br>
 IF YOU USE GEDIT : PLEASE TAPE CTRL+S FOR SAVING AND ENTER
 ```
