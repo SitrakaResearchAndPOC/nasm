@@ -1,5 +1,7 @@
 # HELLO WORLD : nasm
 ## Installing dependancies
+Installing VM (VMWARE 17Pro) </br>
+Installing Ubuntu in your choose </br>
 ```
 apt update
 ```
@@ -14,9 +16,13 @@ sudo dpkg --add-architecture i386
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
+Configuring network
 OR USE PREINSTALLED OS (named ASM)
 
 * sans retour à la ligne
+TEXT EDITOR IS NANO OR GEDIT</br>
+IF YOU USE NANO : PLEASE TAPE CTRL+Y FOR SAVING AND ENTER AFTER </br>
+IF YOU USE GEDIT : PLEASE TAPE CTRL+S FOR SAVING AND ENTER
 ```
 nano hello.asm
 ```
