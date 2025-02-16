@@ -1,4 +1,21 @@
 # HELLO WORLD : nasm
+## Installing dependancies
+```
+apt update
+```
+* For ubuntu 22.04
+```
+apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
+```
+* For ubuntu 24.04
+```
+sudo dpkg --add-architecture i386
+```
+```
+apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
+```
+OR USE PREINSTALLED OS
+
 * sans retour à la ligne
 ```
 nano hello.asm
