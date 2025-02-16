@@ -25,10 +25,12 @@ Configuring network </br> </br>
 OR USE PREINSTALLED OS (named ASM) </br>
 
 * sans retour à la ligne
+
 </br>
 TEXT EDITOR IS NANO OR GEDIT</br> 
 IF YOU USE NANO : PLEASE TAPE CTRL+Y FOR SAVING AND ENTER AFTER </br>
-IF YOU USE GEDIT : PLEASE TAPE CTRL+S FOR SAVING AND ENTER
+IF YOU USE GEDIT : PLEASE TAPE CTRL+S FOR SAVING AND ENTER </br>
+
 ```
 nano hello.asm
 ```
