@@ -845,6 +845,9 @@ nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
 gcc -m32 -o skel.elf driver.c skel.o asm_io.o
 ```
 ```
+chmod +x skel.elf
+```
+```
 ./skel.elf
 ```
 ```
