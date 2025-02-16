@@ -1563,6 +1563,10 @@ nasm -f elf32 -d ELF_TYPE -o first.o first.asm
 gcc -m32 -o first.elf driver.c first.o asm_io.o
 ```
 ```
+chmod +x first.elf
+```
+
+```
 ./first.elf
 ```
 ```
