@@ -1,79 +1,39 @@
 # Installation des dependances
-Installation VM (VMWARE 17Pro) </br> </br>
-Installation Ubuntu, de votre choix : ubuntu 20.04 ou 22.04 ou  ubuntu 24.04 </br> </br>
-Configuration reseaux </br> </br>
-
-* Pour ubuntu 20.04 or 22.04
-```
-mkdir HELLO
-```
-```
-cd HELLO
-```
-```
-apt update
-```
-```
-apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
-```
-* Pour ubuntu 24.04
-```
-apt update
-```
-```
-sudo dpkg --add-architecture i386
-```
-```
-apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
-```
-* Installation vscode
-```
-sudo apt install software-properties-common apt-transport-https curl
-```
-```
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-```
-```
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-```
-```
-sudo apt install code
-```
-
-OU UTILISER UBUNTU PREINSTALLE (ASM qui est avec dgb-peda et metasploit, MYASM Juste pour compilation) </br>
-
-* sans retour à la ligne
-
-</br>
-POUR L'EDITEUR DE TEXTE : NANO ou GEDIT SONT DES CHOIX</br> 
-POUR NANO : TAPER CTRL+Y PUIS ENTREE POUR SAUVEGARDER </br>
-POUR GEDIT : TAPER CTRL+S POUR SAUVEGARDER </br>  </br>
-
+Installation en windows
 # HELLO WORLD : nasm
 
 ```
-nano hello.asm
+notepad++ hello.asm
 ```
 ```
 section .data
     msg db 'Hello, World!', 0xA  ; Message avec saut de ligne
     len equ $ - msg  ; Longueur du message
 
+section .bss
+    hStdOut resd 1  ; Handle de la sortie standard
+
 section .text
+    extern _GetStdHandle@4, _WriteFile@20, _ExitProcess@4
     global _start
 
 _start:
-    ; Écriture du message sur la sortie standard (stdout)
-    mov eax, 4      ; syscall sys_write
-    mov ebx, 1      ; file descriptor 1 (stdout)
-    mov ecx, msg    ; adresse du message
-    mov edx, len    ; longueur du message
-    int 0x80        ; appel système
+    ; Récupérer le handle de la sortie standard
+    push -11             ; STD_OUTPUT_HANDLE = -11
+    call _GetStdHandle@4
+
+    mov [hStdOut], eax   ; Sauvegarder le handle de la sortie standard
+
+    ; Écrire le message
+    push 0               ; NULL pour lpOverlapped
+    push len             ; Nombre de caractères à écrire
+    push offset msg      ; Adresse du message
+    push [hStdOut]       ; Handle de la sortie standard
+    call _WriteFile@20
 
     ; Sortie propre du programme
-    mov eax, 1      ; syscall sys_exit
-    xor ebx, ebx    ; code de retour 0
-    int 0x80        ; appel système
+    push 0               ; Code de retour 0
+    call _ExitProcess@4
 ```
 ```
 nasm -f elf hello.asm -o hello.o
