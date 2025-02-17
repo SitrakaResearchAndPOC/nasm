@@ -45,97 +45,59 @@ hello.elf
 ```
 * hello world avec saut à la ligne dans l'ethiquette _start
 ```
-rm -rf hello.asm hello.elf *.o
+del hello.asm hello.elf *.o
 ```
 ```
-nano hello.asm
+notepad++ hello.asm
 ```
 ```
-AVEC SAUT
+section .data
+    message db 'Hello, World!', 0xA  ; Message
+    length equ $ - message            ; Calculer la longueur du message
+    newline db 0xA                    ; Saut de ligne
+    newline_len equ $ - newline
+
+section .text
+    extern _GetStdHandle@4, _WriteConsoleA@20, _ExitProcess@4
+    global _start
+
+_start:
+    ; Obtenir le handle de la sortie standard (stdout)
+    push -11              ; STD_OUTPUT_HANDLE
+    call _GetStdHandle@4  ; Appel à GetStdHandle pour récupérer le handle de stdout
+
+    ; Sauvegarder le handle retourné dans ebx
+    mov ebx, eax
+
+    ; Afficher le message
+    push 0                ; lpNumberOfCharsWritten (pas nécessaire ici)
+    push length           ; Longueur du message
+    lea eax, [message]    ; Charger l'adresse du message
+    push eax              ; Adresse du message
+    push ebx              ; Handle de la sortie standard
+    call _WriteConsoleA@20 ; Appel à WriteConsoleA pour afficher le message
+
+    ; Afficher un saut de ligne
+    push 0                ; lpNumberOfCharsWritten (pas nécessaire ici)
+    push newline_len      ; Longueur du saut de ligne
+    lea eax, [newline]    ; Charger l'adresse du saut de ligne
+    push eax              ; Adresse du saut de ligne
+    push ebx              ; Handle de la sortie standard
+    call _WriteConsoleA@20 ; Afficher le saut de ligne
+
+    ; Terminer proprement le programme
+    push 0                ; Code de sortie
+    call _ExitProcess@4   ; Appel à ExitProcess pour quitter proprement
 ```
 exercice compilation !?
 ```
 nasm -f win32 hello.asm -o hello.o
 ```
 ```
-gcc -m32 hello.o -o hello.elf -nostartfiles
-```
-OU
-```
-ld -m elf_i386 hello.o -o hello.elf
+gcc -m32 hello.o -o hello.exe -nostartfiles
 ```
 ```
-chmod +x hello.elf
-```
-```
-./hello.elf
-```
-
-# SAISIR ET AFFICHER EN NASM
-```
-nano mon_programme.asm
-```
-```
-section .bss
-    num resb 10   ; Réserver de l'espace pour stocker l'entrée utilisateur
-
-section .data
-    msg db "Entrez un nombre :", 0xA   ; Message à afficher
-    len_msg equ $ - msg                 ; Longueur du message
-    newline db 0xA                      ; Saut de ligne
-
-section .text
-    global _start
-
-_start:
-    ; Afficher le message
-    mov eax, 4        ; syscall write
-    mov ebx, 1        ; descripteur de fichier (stdout)
-    mov ecx, msg      ; adresse du message
-    mov edx, len_msg  ; longueur du message
-    int 0x80
-
-    ; Lire l'entrée utilisateur
-    mov eax, 3        ; syscall read
-    mov ebx, 0        ; descripteur de fichier (stdin)
-    mov ecx, num      ; adresse du tampon
-    mov edx, 10       ; nombre de caractères à lire
-    int 0x80
-
-    ; Afficher le nombre saisi
-    mov eax, 4        ; syscall write
-    mov ebx, 1        ; descripteur de fichier (stdout)
-    mov ecx, num      ; adresse du tampon contenant le nombre
-    mov edx, 10       ; longueur du tampon
-    int 0x80
-
-    ; Afficher un saut de ligne
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, newline
-    mov edx, 1
-    int 0x80
-
-    ; Quitter proprement
-    mov eax, 1        ; syscall exit
-    xor ebx, ebx      ; code de sortie 0
-    int 0x80
-```
-```
-nasm -f elf32 mon_programme.asm -o mon_programme.o
-```
-```
-gcc -m32  mon_programme.o -o mon_programme.elf -nostartfiles
-```
-OU
-```
-ld -m elf_i386 mon_programme.o -o mon_programme.elf
-```
-```
-chmod +x mon_programme.elf
-```
-```
-./mon_programme.elf
+hello.exe
 ```
 
 # COMPILATION DE SKEL AVEC CODE C 
@@ -181,7 +143,7 @@ nano cdecl.h
 
 ```
 ```
-nano driver.c
+notepad++ driver.c
 ```
 ```
 #include "cdecl.h"
@@ -196,7 +158,7 @@ int main()
 }
 ```
 ```
-nano skel.asm
+notepad++ skel.asm
 ```
 ```
 ;
@@ -215,9 +177,12 @@ segment .bss
 ; uninitialized data is put in the bss segment
 ;
 
+
+ 
+
 segment .text
-        global  asm_main
-asm_main:
+        global  _asm_main
+_asm_main:
         enter   0,0               ; setup routine
         pusha
 
@@ -234,7 +199,7 @@ asm_main:
 
 * BIBLIOTHEQUE POUR LA COMPILATION SEPAREE asm_io.inc (pour l'inclusion) asm_io.asm (pour le code)
 ```
-nano asm_io.inc
+notepad++ asm_io.inc
 ```
 ```
 	extern  read_int, print_int, print_string
@@ -760,19 +725,16 @@ ls
 ```
 Compilation skel avec code C
 ```
-nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
+nasm -f elf32  -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
+nasm -f elf32 -o skel.o skel.asm
 ```
 ```
-gcc -m32 -o skel.elf driver.c skel.o asm_io.o
+gcc -m32 -o skel.exe driver.c skel.o asm_io.o
 ```
 ```
-chmod +x skel.elf
-```
-```
-./skel.elf
+skel.exe
 ```
 ```
 cd ..
