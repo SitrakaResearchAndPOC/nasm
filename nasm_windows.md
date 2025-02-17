@@ -109,7 +109,7 @@ mkdir skel_c
 cd skel_c
 ```
 ```
-nano cdecl.h
+notepad++ cdecl.h
 ```
 ```
 #ifndef CDECL_HEADER_FILE
@@ -234,7 +234,7 @@ notepad++ asm_io.inc
 %endmacro
 ```
 ```
-nano asm_io.asm
+notepad++ asm_io.asm
 ```
 ```
 %define NL 10
