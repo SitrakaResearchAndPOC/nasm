@@ -1544,10 +1544,10 @@ _asm_main:
 ;        ret
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm
+curl https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm > asm_io.asm
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linx/asm_io.inc
+curl https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linx/asm_io.inc > asm_io.inc
 ```
 ```
 nasm -f win32  -o asm_io.o asm_io.asm
