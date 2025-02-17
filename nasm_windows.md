@@ -749,7 +749,7 @@ mkdir skel
 cd skel
 ```
 ```
-nano skel.asm
+notepad++ skel.asm
 ```
 ```
 ;
@@ -769,8 +769,8 @@ segment .bss
 ;
 
 segment .text
-        global  asm_main
-asm_main:
+        global  _asm_main ; TIRET BAS POUR WINDOWS
+_asm_main:
 ; MODIFICATION WITHOUT WRAPPING C
 ;        enter   0,0               ; setup routine
 ;        pusha
@@ -794,7 +794,7 @@ asm_main:
 ```
 NEED asm_io.inc and asm_io.asm
 ```
-nano asm_io.inc
+notepad++ asm_io.inc
 ```
 ```
 	extern  read_int, print_int, print_string
@@ -829,7 +829,7 @@ nano asm_io.inc
 %endmacro
 ```
 ```
-nano asm_io.asm
+notepad++ asm_io.asm
 ```
 ```
 %define NL 10
@@ -1319,20 +1319,16 @@ cont_tag_loop:
 ls
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
+nasm -f elf32 -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o skel.o skel.asm
+nasm -f elf32 -o skel.o skel.asm
 ```
 ```
-gcc -m32 -o skel.elf skel.o asm_io.o -nostartfiles
-```
-OU
-```
-ld -m elf_i386 -o skel.elf skel.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
+gcc -m32 -o skel.exe skel.o asm_io.o -nostartfiles
 ```
 ```
-./skel.elf
+skel.elf
 ```
 ```
 cd ..
@@ -1347,7 +1343,7 @@ mkdir first_c
 cd first_c
 ```
 ```
-nano first.asm
+notepad++ first.asm
 ```
 
 ```
@@ -1380,8 +1376,8 @@ input2  resd 1
 ; code is put in the .text segment
 ;
 segment .text
-        global  asm_main
-asm_main:
+        global  _asm_main ; ajout de tiret bas pour windows
+_asm_main:
         enter   0,0               ; setup routine
         pusha
 
@@ -1425,28 +1421,28 @@ asm_main:
         ret
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm
+curl https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm > asm_io.asm 
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.inc
+curl https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.inc > asm_io.inc
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/cdecl.h
+curl https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/cdecl.h > cdecl.h
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/driver.c
+curl https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/driver.c > driver.c
 ```
 ```
-ls
+dir
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
+nasm -f win32 -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o first.o first.asm
+nasm -f win32  -o first.o first.asm
 ```
 ```
-gcc -m32 -o first.elf driver.c first.o asm_io.o
+gcc -m32 -o first.exe driver.c first.o asm_io.o
 ```
 ```
 chmod +x first.elf
@@ -1467,7 +1463,7 @@ mkdir first
 cd first
 ```
 ```
-nano first.asm
+notepad++ first.asm
 ```
 ```
 %include "asm_io.inc"
@@ -1499,8 +1495,8 @@ input2  resd 1
 ; code is put in the .text segment
 ;
 segment .text
-        global  asm_main
-asm_main:
+        global  _asm_main ; ajout de tiret bas pour windows
+_asm_main:
 ; MODIFICATION WITHOUT C WRAPING
 ;        enter   0,0               ; setup routine
 ;        pusha
@@ -1558,23 +1554,16 @@ wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/mai
 wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linx/asm_io.inc
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
+nasm -f elf32  -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -d ELF_TYPE -o first.o first.asm
+nasm -f elf32 -o first.o first.asm
 ```
 ```
-gcc -m32 -o first.elf first.o asm_io.o -nostartfiles
-```
-OU
-```
-ld -m elf_i386 -o first.elf first.o asm_io.o -lc -dynamic-linker /lib/ld-linux.so.2
+gcc -m32 -o first.exe first.o asm_io.o -nostartfiles
 ```
 ```
-chmod +x first.elf
-```
-```
-./first.elf
+first.exe
 ```
 ```
 cd ..
