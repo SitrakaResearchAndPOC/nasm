@@ -1,22 +1,47 @@
 # Installation des dependances
 Installation VM (VMWARE 17Pro) </br> </br>
-Installation Ubuntu, de votre choix : ubuntu 20.04 ou 22.04 ou  ubuntu 24.04 </br> </br>
+Installation Ubuntu, de votre choix : ubuntu 20.04 or 22.04 or  ubuntu 24.04 </br> </br>
 Configuration reseaux </br> </br>
+```
+ip a
+```
+```
+ls /etc/netplan/
+```
+```
+sudo nano /etc/netplan/00-installer-config.yaml
+```
+```
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens33:
+      dhcp4: yes
+```
+```
+sudo netplan apply
+```
+```
+sudo netplan try
+```
+S'il y a des erreurs, regarder les logs
+```
+journalctl -u systemd-networkd
+```
+Tester ping 8.8.8.8, si ok avec TLL=...
+```
+ping 8.8.8.8
+```
 
 * Pour ubuntu 20.04 or 22.04
-```
-mkdir HELLO
-```
-```
-cd HELLO
-```
 ```
 apt update
 ```
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
-* Pour ubuntu 24.04
+* For ubuntu 24.04
 ```
 apt update
 ```
@@ -26,28 +51,8 @@ sudo dpkg --add-architecture i386
 ```
 apt install nasm binutils gcc libc6-dev-i386 gcc-multilib git unzip
 ```
-* Installation vscode
-```
-sudo apt install software-properties-common apt-transport-https curl
-```
-```
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-```
-```
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-```
-```
-sudo apt install code
-```
+OU UTILISER UBUNTU PREINSTALLE (ASM qui est avec dgb-peda et metasploit, MYASM Juste pour compilation)
 
-OU UTILISER UBUNTU PREINSTALLE (ASM qui est avec dgb-peda et metasploit, MYASM Juste pour compilation) </br>
-
-* sans retour à la ligne
-
-</br>
-POUR L'EDITEUR DE TEXTE : NANO ou GEDIT SONT DES CHOIX</br> 
-POUR NANO : TAPER CTRL+Y PUIS ENTREE POUR SAUVEGARDER </br>
-POUR GEDIT : TAPER CTRL+S POUR SAUVEGARDER </br>  </br>
 
 # HELLO WORLD : nasm
 
