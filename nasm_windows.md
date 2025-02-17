@@ -41,11 +41,11 @@ nasm -f win32 hello.asm -o hello.o
 gcc -m32 hello.o -o hello.exe -nostartfiles
 ```
 ```
-hello.elf
+hello.exe
 ```
 * hello world avec saut à la ligne dans l'ethiquette _start
 ```
-del hello.asm hello.elf *.o
+del hello.asm hello.exe *.o
 ```
 ```
 notepad++ hello.asm
@@ -1328,7 +1328,7 @@ nasm -f elf32 -o skel.o skel.asm
 gcc -m32 -o skel.exe skel.o asm_io.o -nostartfiles
 ```
 ```
-skel.elf
+skel.exe
 ```
 ```
 cd ..
@@ -1445,11 +1445,7 @@ nasm -f win32  -o first.o first.asm
 gcc -m32 -o first.exe driver.c first.o asm_io.o
 ```
 ```
-chmod +x first.elf
-```
-
-```
-./first.elf
+first.exe
 ```
 ```
 cd ..
