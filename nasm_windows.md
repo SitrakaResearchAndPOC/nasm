@@ -725,10 +725,10 @@ ls
 ```
 Compilation skel avec code C
 ```
-nasm -f elf32  -o asm_io.o asm_io.asm
+nasm -f win32  -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -o skel.o skel.asm
+nasm -f win32 -o skel.o skel.asm
 ```
 ```
 gcc -m32 -o skel.exe driver.c skel.o asm_io.o
@@ -1319,10 +1319,10 @@ cont_tag_loop:
 ls
 ```
 ```
-nasm -f elf32 -o asm_io.o asm_io.asm
+nasm -f win32 -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -o skel.o skel.asm
+nasm -f win32 -o skel.o skel.asm
 ```
 ```
 gcc -m32 -o skel.exe skel.o asm_io.o -nostartfiles
@@ -1550,10 +1550,10 @@ wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/mai
 wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linx/asm_io.inc
 ```
 ```
-nasm -f elf32  -o asm_io.o asm_io.asm
+nasm -f win32  -o asm_io.o asm_io.asm
 ```
 ```
-nasm -f elf32 -o first.o first.asm
+nasm -f win32 -o first.o first.asm
 ```
 ```
 gcc -m32 -o first.exe first.o asm_io.o -nostartfiles
