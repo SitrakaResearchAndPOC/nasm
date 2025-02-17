@@ -10,46 +10,38 @@ section .data
     msg db 'Hello, World!', 0xA  ; Message avec saut de ligne
     len equ $ - msg  ; Longueur du message
 
-section .bss
-    hStdOut resd 1  ; Handle de la sortie standard
-
 section .text
-    extern _GetStdHandle@4, _WriteFile@20, _ExitProcess@4
+    extern _GetStdHandle@4, _WriteConsoleA@20, _ExitProcess@4
     global _start
 
 _start:
-    ; Récupérer le handle de la sortie standard
-    push -11             ; STD_OUTPUT_HANDLE = -11
-    call _GetStdHandle@4
+    ; Obtenir le handle de la sortie standard (console)
+    push -11              ; STD_OUTPUT_HANDLE
+    call _GetStdHandle@4  ; Appel de GetStdHandle
 
-    mov [hStdOut], eax   ; Sauvegarder le handle de la sortie standard
+    ; Sauvegarder le handle retourné dans ebx
+    mov ebx, eax
 
-    ; Écrire le message
-    push 0               ; NULL pour lpOverlapped
-    push len             ; Nombre de caractères à écrire
-    push offset msg      ; Adresse du message
-    push [hStdOut]       ; Handle de la sortie standard
-    call _WriteFile@20
+    ; Appel à WriteConsoleA pour afficher le message
+    push 0                ; lpNumberOfCharsWritten (pas nécessaire ici)
+    push len              ; nombre de caractères à écrire
+    lea eax, [msg]        ; Charger l'adresse de msg dans eax
+    push eax              ; adresse du message
+    push ebx              ; handle de la sortie standard
+    call _WriteConsoleA@20 ; Appel de WriteConsoleA
 
-    ; Sortie propre du programme
-    push 0               ; Code de retour 0
-    call _ExitProcess@4
+    ; Terminer proprement le programme
+    push 0                ; code de retour
+    call _ExitProcess@4   ; Appel de ExitProcess
 ```
 ```
-nasm -f elf hello.asm -o hello.o
+nasm -f win32 hello.asm -o hello.o
 ```
 ```
-gcc -m32 hello.o -o hello.elf -nostartfiles
-```
-OU
-```
-ld -m elf_i386 hello.o -o hello.elf
+gcc -m32 hello.o -o hello.exe -nostartfiles
 ```
 ```
-chmod +x hello.elf
-```
-```
-./hello.elf
+hello.elf
 ```
 * hello world avec saut à la ligne dans l'ethiquette _start
 ```
@@ -59,39 +51,11 @@ rm -rf hello.asm hello.elf *.o
 nano hello.asm
 ```
 ```
-section .data
-    message db 'Hello, World!', 0xA  ; Message
-    length equ $ - message            ; Calculer la longueur du message
-
-    newline db 0xA  ; Saut de ligne
-    newline_len equ $ - newline
-
-section .text
-    global _start
-
-_start:
-    ; Écriture du message sur la sortie standard (stdout)
-    mov eax, 4      ; syscall sys_write
-    mov ebx, 1      ; file descriptor 1 (stdout)
-    mov ecx, message ; adresse du message
-    mov edx, length ; longueur du message
-    int 0x80        ; appel système
-
-    ; Écriture du saut de ligne
-    mov eax, 4      ; syscall sys_write
-    mov ebx, 1      ; file descriptor 1 (stdout)
-    mov ecx, newline ; adresse du saut de ligne
-    mov edx, newline_len ; longueur du saut de ligne
-    int 0x80        ; appel système
-
-    ; Sortie propre du programme
-    mov eax, 1      ; syscall sys_exit
-    xor ebx, ebx    ; code de retour 0
-    int 0x80        ; appel système
+AVEC SAUT
 ```
 exercice compilation !?
 ```
-nasm -f elf hello.asm -o hello.o
+nasm -f win32 hello.asm -o hello.o
 ```
 ```
 gcc -m32 hello.o -o hello.elf -nostartfiles
