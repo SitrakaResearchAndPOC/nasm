@@ -312,7 +312,7 @@ cat first.asm
 wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.asm
 ```
 ```
-wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linx/asm_io.inc
+wget https://raw.githubusercontent.com/SitrakaResearchAndPOC/nasm/refs/heads/main/linux/asm_io.inc
 ```
 ```
 nasm -f elf32 -d ELF_TYPE -o asm_io.o asm_io.asm
