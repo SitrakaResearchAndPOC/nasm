@@ -769,6 +769,7 @@ segment .bss
 ;
 
 segment .text
+	extern _ExitProcess@4
         global  _asm_main ; TIRET BAS POUR WINDOWS
 _asm_main:
 ; MODIFICATION WITHOUT WRAPPING C
@@ -788,9 +789,12 @@ _asm_main:
 
 ; MODIFICATION ADDED FOR RETUN 
     ; Sortie propre du programme
-    mov eax, 1      ; syscall sys_exit
-    xor ebx, ebx    ; code de retour 0
-    int 0x80        ; appel système
+   ; mov eax, 1      ; syscall sys_exit
+   ; xor ebx, ebx    ; code de retour 0
+   ; int 0x80        ; appel système
+ ; Terminer proprement le programme
+    push 0                ; code de retour
+    call _ExitProcess@4   ; Appel de ExitProcess
 ```
 NEED asm_io.inc and asm_io.asm
 ```
@@ -1491,6 +1495,7 @@ input2  resd 1
 ; code is put in the .text segment
 ;
 segment .text
+	extern _ExitProcess@4
         global  _asm_main ; ajout de tiret bas pour windows
 _asm_main:
 ; MODIFICATION WITHOUT C WRAPING
@@ -1533,10 +1538,12 @@ _asm_main:
 
 ; MODIFICATION WITHOUT C WRAPPIING ADDED
 	; sys_exit (status = 0)
-	mov eax, 1          ; syscall number for sys_exit
-	xor ebx, ebx        ; exit code 0
-	int 0x80            ; call kernel
-
+	;mov eax, 1          ; syscall number for sys_exit
+	;xor ebx, ebx        ; exit code 0
+	;int 0x80            ; call kernel
+ ; Terminer proprement le programme
+    push 0                ; code de retour
+    call _ExitProcess@4   ; Appel de ExitProcess
 ; MODIFICATION WITHOUT C WRAPPING
 ;	 popa
 ;        mov     eax, 0            ; return back to C
