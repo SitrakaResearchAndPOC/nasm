@@ -1,0 +1,210 @@
+CODE SIMPLE : 
+section .data
+    prompt db 'Entrez un message: ', 0  ; Texte du prompt
+    prompt_len equ $ - prompt           ; Longueur du prompt
+
+    newline db 0xA, 0                    ; Saut de ligne
+    newline_len equ $ - newline
+
+section .bss
+    hStdIn resd 1    ; Handle pour stdin
+    hStdOut resd 1   ; Handle pour stdout
+    buffer resb 128  ; Buffer pour stocker l'entrée utilisateur
+    bytesRead resd 1 ; Nombre d'octets lus
+
+section .text
+    extern _GetStdHandle@4, _ReadFile@20, _WriteFile@20, _ExitProcess@4
+    global _start
+
+_start:
+    ; Obtenir le handle de la sortie standard (stdout)
+    push -11              ; STD_OUTPUT_HANDLE (-11)
+    call _GetStdHandle@4  
+    mov [hStdOut], eax    
+
+  
+
+    ; Afficher le prompt sur stdout
+    push dword 0          ; lpOverlapped (NULL)
+    push dword 0          ; lpNumberOfBytesWritten (NULL)
+    push dword prompt_len ; Nombre d'octets à écrire
+    push dword prompt     ; Adresse du message
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteFile@20    
+
+  ; Obtenir le handle de l'entrée standard (stdin)
+    push -10              ; STD_INPUT_HANDLE (-10)
+    call _GetStdHandle@4  
+    mov [hStdIn], eax     
+
+    ; Lire l'entrée utilisateur depuis stdin
+    push dword 0          ; lpOverlapped (NULL)
+    push dword bytesRead  ; Adresse où stocker le nombre d'octets lus
+    push dword 128        ; Nombre maximum d'octets à lire
+    push dword buffer     ; Adresse du buffer
+    push dword [hStdIn]   ; Handle de l'entrée standard
+    call _ReadFile@20     
+
+
+  ; Obtenir le handle de la sortie standard (stdout)
+    push -11              ; STD_OUTPUT_HANDLE (-11)
+    call _GetStdHandle@4  
+    mov [hStdOut], eax    
+
+    ; Ajouter un saut de ligne après l'entrée utilisateur sur stdout
+    push dword 0          ; lpOverlapped (NULL)
+    push dword 0          ; lpNumberOfBytesWritten (NULL)
+    push dword newline_len ; Nombre d'octets à écrire
+    push dword newline    ; Adresse du saut de ligne
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteFile@20    
+
+    ; Afficher l'entrée utilisateur sur stdout
+    push dword 0           ; lpOverlapped (NULL)
+    push dword 0           ; lpNumberOfBytesWritten (NULL)
+    push dword [bytesRead] ; Nombre d'octets lus
+    push dword buffer      ; Adresse du buffer contenant l'entrée
+    push dword [hStdOut]   ; Handle de la sortie standard
+    call _WriteFile@20    
+
+    ; Quitter proprement
+    push dword 0
+    call _ExitProcess@4 
+
+****************************************************************************************************
+section .data 
+    prompt db 'Entrez un message: ', 0  ; Texte du prompt
+    prompt_len equ $ - prompt           ; Longueur du prompt
+
+    crlf db 0xD, 0xA  ; Retour chariot + saut de ligne (Windows)
+    crlf_len equ $ - crlf
+
+section .bss
+    hStdIn resd 1    ; Handle pour stdin
+    hStdOut resd 1   ; Handle pour stdout
+    buffer resb 128  ; Buffer pour stocker l'entrée utilisateur
+    bytesRead resd 1 ; Nombre d'octets lus
+
+section .text
+    extern _GetStdHandle@4, _ReadConsoleA@20, _WriteConsoleA@20, _ExitProcess@4
+    global _start
+
+_start:
+    ; Obtenir le handle de la sortie standard (stdout)
+    push -11              ; STD_OUTPUT_HANDLE (-11)
+    call _GetStdHandle@4  
+    mov [hStdOut], eax    
+
+    ; Afficher le prompt avec WriteConsoleA
+    push dword 0          ; lpReserved (NULL)
+    push dword 0          ; lpNumberOfCharsWritten (NULL)
+    push dword prompt_len ; Nombre de caractères à écrire
+    push dword prompt     ; Adresse du message
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteConsoleA@20    
+
+    ; Obtenir le handle de l'entrée standard (stdin)
+    push -10              ; STD_INPUT_HANDLE (-10)
+    call _GetStdHandle@4  
+    mov [hStdIn], eax     
+
+    ; Lire l'entrée utilisateur avec ReadConsoleA
+    push dword 0          ; lpReserved (NULL)
+    push dword bytesRead  ; Adresse où stocker le nombre d'octets lus
+    push dword 128        ; Nombre maximum de caractères à lire
+    push dword buffer     ; Adresse du buffer
+    push dword [hStdIn]   ; Handle de l'entrée standard
+    call _ReadConsoleA@20     
+
+    ; Ajouter un saut de ligne après l'entrée utilisateur sur stdout
+    push dword 0          ; lpReserved (NULL)
+    push dword 0          ; lpNumberOfCharsWritten (NULL)
+    push dword crlf_len   ; Nombre de caractères à écrire
+    push dword crlf       ; Adresse du saut de ligne
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteConsoleA@20    
+
+    ; Afficher l'entrée utilisateur sur stdout
+    push dword 0           ; lpReserved (NULL)
+    push dword 0           ; lpNumberOfCharsWritten (NULL)
+    push dword [bytesRead] ; Nombre réel de caractères lus
+    push dword buffer      ; Adresse du buffer contenant l'entrée
+    push dword [hStdOut]   ; Handle de la sortie standard
+    call _WriteConsoleA@20    
+
+    ; Quitter proprement
+    push dword 0
+    call _ExitProcess@4
+
+
+***************************************************************************************************
+
+
+section .data
+    prompt db 'Entrez un message: ', 0  ; Texte du prompt
+    prompt_len equ $ - prompt           ; Longueur du prompt
+
+    crlf db 0xD, 0xA  ; Retour chariot + saut de ligne (Windows)
+    crlf_len equ $ - crlf
+
+section .bss
+    hStdIn resd 1    ; Handle pour stdin
+    hStdOut resd 1   ; Handle pour stdout
+    buffer resb 128  ; Buffer pour stocker l'entrée utilisateur
+    bytesRead resd 1 ; Nombre d'octets lus
+
+section .text
+    extern _GetStdHandle@4, _ReadFile@20, _WriteFile@20, _ExitProcess@4
+    global _start
+
+_start:
+    ; Obtenir le handle de la sortie standard (stdout) UNE SEULE FOIS
+    push -11              ; STD_OUTPUT_HANDLE (-11)
+    call _GetStdHandle@4  
+    mov [hStdOut], eax    
+
+    ; Afficher le prompt sur stdout
+    push dword 0          ; lpOverlapped (NULL)
+    push dword 0          ; lpNumberOfBytesWritten (NULL)
+    push dword prompt_len ; Nombre d'octets à écrire
+    push dword prompt     ; Adresse du message
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteFile@20    
+
+    ; Obtenir le handle de l'entrée standard (stdin)
+    push -10              ; STD_INPUT_HANDLE (-10)
+    call _GetStdHandle@4  
+    mov [hStdIn], eax     
+
+    ; Lire l'entrée utilisateur depuis stdin
+    push dword 0          ; lpOverlapped (NULL)
+    push dword bytesRead  ; Adresse où stocker le nombre d'octets lus
+    push dword 128        ; Nombre maximum d'octets à lire
+    push dword buffer     ; Adresse du buffer
+    push dword [hStdIn]   ; Handle de l'entrée standard
+    call _ReadFile@20     
+
+    ; Ajouter un saut de ligne après l'entrée utilisateur sur stdout
+    push dword 0          ; lpOverlapped (NULL)
+    push dword 0          ; lpNumberOfBytesWritten (NULL)
+    push dword crlf_len   ; Nombre d'octets à écrire
+    push dword crlf       ; Adresse du saut de ligne
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteFile@20    
+
+    ; Afficher l'entrée utilisateur sur stdout (avec le bon nombre d'octets lus)
+    push dword 0           ; lpOverlapped (NULL)
+    push dword 0           ; lpNumberOfBytesWritten (NULL)
+    push dword [bytesRead] ; Nombre réel d'octets lus
+    push dword buffer      ; Adresse du buffer contenant l'entrée
+    push dword [hStdOut]   ; Handle de la sortie standard
+    call _WriteFile@20    
+
+    ; Quitter proprement
+    push dword 0
+    call _ExitProcess@4
+
+
+
+**************************************************************************
+
