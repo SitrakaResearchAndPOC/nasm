@@ -721,7 +721,7 @@ cont_tag_loop:
 	ret	4
 ```
 ```
-ls
+dir
 ```
 Compilation skel avec code C
 ```
@@ -1320,7 +1320,7 @@ cont_tag_loop:
 	ret	4
 ```
 ```
-ls
+dir
 ```
 ```
 nasm -f win32 -o asm_io.o asm_io.asm
