@@ -99,6 +99,86 @@ gcc -m32 hello.o -o hello.exe -nostartfiles
 hello.exe
 ```
 
+# SAISIR ET AFFICHER EN NASM
+```
+nano mon_programme.asm
+```
+```
+section .data 
+    prompt db 'Entrez un message: ', 0  ; Texte du prompt
+    prompt_len equ $ - prompt           ; Longueur du prompt
+
+    crlf db 0xD, 0xA  ; Retour chariot + saut de ligne (Windows)
+    crlf_len equ $ - crlf
+
+section .bss
+    hStdIn resd 1    ; Handle pour stdin
+    hStdOut resd 1   ; Handle pour stdout
+    buffer resb 128  ; Buffer pour stocker l'entrée utilisateur
+    bytesRead resd 1 ; Nombre d'octets lus
+
+section .text
+    extern _GetStdHandle@4, _ReadConsoleA@20, _WriteConsoleA@20, _ExitProcess@4
+    global _start
+
+_start:
+    ; Obtenir le handle de la sortie standard (stdout)
+    push -11              ; STD_OUTPUT_HANDLE (-11)
+    call _GetStdHandle@4  
+    mov [hStdOut], eax    
+
+    ; Afficher le prompt avec WriteConsoleA
+    push dword 0          ; lpReserved (NULL)
+    push dword 0          ; lpNumberOfCharsWritten (NULL)
+    push dword prompt_len ; Nombre de caractères à écrire
+    push dword prompt     ; Adresse du message
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteConsoleA@20    
+
+    ; Obtenir le handle de l'entrée standard (stdin)
+    push -10              ; STD_INPUT_HANDLE (-10)
+    call _GetStdHandle@4  
+    mov [hStdIn], eax     
+
+    ; Lire l'entrée utilisateur avec ReadConsoleA
+    push dword 0          ; lpReserved (NULL)
+    push dword bytesRead  ; Adresse où stocker le nombre d'octets lus
+    push dword 128        ; Nombre maximum de caractères à lire
+    push dword buffer     ; Adresse du buffer
+    push dword [hStdIn]   ; Handle de l'entrée standard
+    call _ReadConsoleA@20     
+
+    ; Ajouter un saut de ligne après l'entrée utilisateur sur stdout
+    push dword 0          ; lpReserved (NULL)
+    push dword 0          ; lpNumberOfCharsWritten (NULL)
+    push dword crlf_len   ; Nombre de caractères à écrire
+    push dword crlf       ; Adresse du saut de ligne
+    push dword [hStdOut]  ; Handle de la sortie standard
+    call _WriteConsoleA@20    
+
+    ; Afficher l'entrée utilisateur sur stdout
+    push dword 0           ; lpReserved (NULL)
+    push dword 0           ; lpNumberOfCharsWritten (NULL)
+    push dword [bytesRead] ; Nombre réel de caractères lus
+    push dword buffer      ; Adresse du buffer contenant l'entrée
+    push dword [hStdOut]   ; Handle de la sortie standard
+    call _WriteConsoleA@20    
+
+    ; Quitter proprement
+    push dword 0
+    call _ExitProcess@4
+```
+```
+nasm -f win32 mon_programme.asm -o mon_programme.o
+```
+```
+gcc -m32  mon_programme.o -o mon_programme.exe -nostartfiles
+```
+```
+mon_programme.exe
+```
+
+
 # COMPILATION DE SKEL AVEC CODE C 
 * Code C
 ```
