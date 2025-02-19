@@ -1,7 +1,6 @@
 # Installation des dependances
 Installation en windows
 # HELLO WORLD : nasm
-
 ```
 notepad++ hello.asm
 ```
