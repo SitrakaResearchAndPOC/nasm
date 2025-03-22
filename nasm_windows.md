@@ -848,9 +848,8 @@ segment .bss
 ;
 
 segment .text
-	extern _ExitProcess@4
-        global  _asm_main ; TIRET BAS POUR WINDOWS
-_asm_main:
+        global  _start ; TIRET BAS POUR WINDOWS  ; avec nostartfiles sans options c'est _start le point d'entrée
+_start:
 ; MODIFICATION WITHOUT WRAPPING C
 ;        enter   0,0               ; setup routine
 ;        pusha
@@ -860,11 +859,13 @@ _asm_main:
 ; or after this comment.
 ;
 
+
 ; MODIFICATION WITHOUT WRAPPING C
 ;        popa
 ;        mov     eax, 0            ; return back to C
 ;        leave                     
-;        ret
+;       ret
+
 
 ; MODIFICATION ADDED FOR RETUN 
     ; Sortie propre du programme
@@ -872,8 +873,8 @@ _asm_main:
    ; xor ebx, ebx    ; code de retour 0
    ; int 0x80        ; appel système
  ; Terminer proprement le programme
-    push 0                ; code de retour
-    call _ExitProcess@4   ; Appel de ExitProcess
+  mov eax, 0
+  ret 	
 ```
 NEED asm_io.inc and asm_io.asm
 ```
@@ -1574,9 +1575,8 @@ input2  resd 1
 ; code is put in the .text segment
 ;
 segment .text
-	extern _ExitProcess@4
-        global  _asm_main ; ajout de tiret bas pour windows
-_asm_main:
+        global  _start ; ajout de tiret bas pour windows  ET AVEC NO START FILES C'EST OBLIGATOIRE QUE LE POINT D'ENTREE EST START
+_start:
 ; MODIFICATION WITHOUT C WRAPING
 ;        enter   0,0               ; setup routine
 ;        pusha
@@ -1621,8 +1621,8 @@ _asm_main:
 	;xor ebx, ebx        ; exit code 0
 	;int 0x80            ; call kernel
  ; Terminer proprement le programme
-    push 0                ; code de retour
-    call _ExitProcess@4   ; Appel de ExitProcess
+	mov eax, 0
+	ret
 ; MODIFICATION WITHOUT C WRAPPING
 ;	 popa
 ;        mov     eax, 0            ; return back to C
