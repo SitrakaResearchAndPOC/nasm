@@ -4,7 +4,7 @@
 * [nasm_windows_with_gui](https://github.com/SitrakaResearchAndPOC/nasm/blob/main/nasm_windows.md)
 
 ## BONNE PRATIQUE
-* BIEN CHOISIR GCC 32bit, (gcc32)[https://drive.usercontent.google.com/download?id=1fmtYdRcNcMQi0bh15xn2HPM0G1j5NTaL&export=download&authuser=0]
+* BIEN CHOISIR GCC 32bit, [gcc32](https://drive.usercontent.google.com/download?id=1fmtYdRcNcMQi0bh15xn2HPM0G1j5NTaL&export=download&authuser=0)
 * LES ETIQUETTES EN LINUX C'EST SANS TIRET ET EN WINDOWS C'EST AVEC UN TIRET
 * TOUJOURS ALIGNES LES NIVEAUX DE CODE
 * AJOUTER EXTERN NOM_FONCTION DANS LE CODE QUAND C'EST FONCTION EXTERNE
